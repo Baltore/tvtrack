@@ -1,0 +1,31 @@
+# Déploiement tout-en-un sur un VPS : backend + MongoDB dans le même réseau.
+# Le frontend se déploie séparément (Vercel / Netlify) ou derrière un Nginx.
+#
+# Lancement :  docker compose -f docker-compose.prod.yml up -d --build
+#
+# Remplis d'abord backend/.env (JWT_SECRET fort, CORS_ORIGIN = URL du front).
+# MONGODB_URI est surchargé ici pour pointer vers le conteneur mongo.
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: tvtrack-mongo
+    restart: unless-stopped
+    volumes:
+      - tvtrack-mongo-data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: tvtrack-backend
+    restart: unless-stopped
+    env_file: ./backend/.env
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongo:27017/tvtrack
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+
+volumes:
+  tvtrack-mongo-data:
