@@ -1,6 +1,6 @@
 # TVTrack
 
-TVTrack est une application web de suivi d'animés (type TV Time) : recherche, bibliothèque personnelle, progression **saison par saison et épisode par épisode**, notes, favoris, sorties à venir et import depuis TV Time. Interface sombre moderne, responsive mobile / tablette / desktop.
+TVTrack est une application web de suivi d'animés : recherche, bibliothèque personnelle, progression **saison par saison et épisode par épisode**, notes, favoris, sorties à venir et import depuis TV Time. Interface sombre moderne, responsive mobile / tablette / desktop.
 
 ## Fonctionnalités
 
@@ -9,7 +9,7 @@ TVTrack est une application web de suivi d'animés (type TV Time) : recherche, b
 - **Calendrier des sorties** : les prochains épisodes des animés **de ta liste**, groupés par jour (Hier, Aujourd'hui, puis les jours de la semaine jusqu'à J+6, puis « Plus tard » avec le décompte de jours)
 - Recherche AniList avec debounce + catalogue sans recherche (tendances, populaires cette saison, populaires de tous les temps, mieux notés)
 - **Saisons regroupées** : les saisons d'une même série (entrées AniList séparées) sont fusionnées en une seule fiche — Mushoku Tensei = 1 carte avec 5 saisons, pas 6 résultats
-- Fiche détail : liste des saisons façon TV Time (progression, coche "saison vue", grille d'épisodes dépliable — cliquer sur l'épisode N marque tout ce qui précède comme vu)
+- Fiche détail : liste des saisons (progression, coche "saison vue", grille d'épisodes dépliable — cliquer sur l'épisode N marque tout ce qui précède comme vu)
 - Suivi par animé : statut (à voir, en cours, terminé, en pause, abandonné — mis à jour automatiquement selon la progression), note sur 10, favori, commentaire personnel
 - Bibliothèque avec filtres (statut, favoris, note minimum, titre) et tri (récent, activité, note, titre, progression)
 - **Import TV Time** : charge le fichier JSON de ton export TV Time, l'app retrouve tes animés sur AniList et importe ta progression
@@ -74,7 +74,7 @@ Le frontend tourne sur `http://localhost:5173`.
 
 ## Import TV Time
 
-1. Demande ton export de données dans TV Time (Paramètres → Compte → Exporter mes données, ou demande RGPD par email).
+1. Demande ton export de données dans TV Time.
 2. Récupère le fichier `.json` contenant tes épisodes vus.
 3. Dans TVTrack : menu **Import TV Time** → choisis le fichier → vérifie la liste → lance l'import.
 
@@ -138,11 +138,3 @@ src/
 - Chaque requête bibliothèque est **scopée sur l'utilisateur** : impossible de lire/modifier les données d'un autre.
 - Gestion d'erreurs globale : messages propres, **aucune stack ni secret renvoyé** au client.
 
-## Déploiement
-
-Voir **[README_DEPLOYMENT.md](README_DEPLOYMENT.md)** : Frontend sur **Vercel**, Backend sur **Render**, base sur **MongoDB Atlas** (+ option VPS Docker via `docker-compose.prod.yml`).
-
-## Notes
-
-- Les liens saison ↔ saison viennent des relations prequel/sequel AniList, avec un garde-fou de similarité de titres (certaines relations AniList sont fantaisistes).
-- Cette application ne copie pas TV Time : elle reproduit le principe du suivi personnel (chercher une œuvre, cocher ses épisodes, suivre sa progression).
